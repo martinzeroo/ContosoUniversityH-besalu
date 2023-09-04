@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversityHõbesalu.Controllers
 {
-    public class StudentController : Controller
+    public class StudentsController : Controller
     {
         private readonly SchoolContext _context;
 
-        public StudentController(SchoolContext context)
+        public StudentsController(SchoolContext context)
         {
             _context = context;
         }
