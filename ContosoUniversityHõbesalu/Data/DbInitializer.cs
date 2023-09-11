@@ -74,6 +74,12 @@ namespace ContosoUniversityHõbesalu.Data
                 context.Enrollments.Add(E);
             }
             context.SaveChanges();
+
+            var instructors = new Instructor[]
+            {
+
+            };
         }
+
     }
 }

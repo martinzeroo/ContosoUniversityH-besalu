@@ -79,12 +79,13 @@ namespace ContosoUniversityHõbesalu.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
+            if (await TryUpdateModelAsync<Student>(studentToUpdate, "", s=>s.FirstMidName,
+                s=>s.LastName, s=>s.EnrollmentDate))
             {
                 return NotFound();
             }
-            return View(student);
+            return View(studentToUpdate);
         }
 
         // POST: Students/Edit/5
