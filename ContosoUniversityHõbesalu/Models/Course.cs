@@ -14,6 +14,9 @@ namespace ContosoUniversityHõbesalu.Models
 
         public int Credits { get; set; }
 
+        public int DepartmentId { get; set; }
+
+
         public ICollection<Enrollment> Enrollments  { get; set; }
     }
 }
