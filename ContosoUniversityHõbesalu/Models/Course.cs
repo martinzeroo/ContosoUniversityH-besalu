@@ -8,7 +8,7 @@ namespace ContosoUniversityHõbesalu.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         
-        public int CourseId { get; set; }
+        public int CourseID { get; set; }
 
         public string Title { get; set; }
 
