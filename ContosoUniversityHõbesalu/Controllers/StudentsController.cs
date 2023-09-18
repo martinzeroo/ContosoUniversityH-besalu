@@ -64,6 +64,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             }
             return View(student);
         }
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -58,10 +58,5 @@ public class Program
             }
         }
     }
-    public static IHostBuilder CreaterHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Program>();
-        });
+    
 }

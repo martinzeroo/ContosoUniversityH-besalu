@@ -47,6 +47,12 @@ namespace ContosoUniversityHõbesalu.Data
                 context.Instructors.Add(i);
             }
             context.SaveChanges();
+            context.Database.EnsureCreated();
+
+            if (context.Departments.Any())
+            {
+                return;
+            }
 
             var departments = new Department[]
             {
