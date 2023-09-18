@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversityHõbesalu.Data;
 using ContosoUniversityHõbesalu.Models;
 
-namespace ContosUniversityHannes.Controllers
+namespace ContosUniversityHõbesalu.Controllers
 {
     public class InstructorsController : Controller
     {
