@@ -28,6 +28,6 @@ namespace ContosoUniversityHõbesalu.Models
         [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
         public ICollection<CourseAssignment>? CourseAssignments { get; set; }
-        public OfficeAssignment? OfficeAssignments { get; set; }
+        public OfficeAssignment? OfficeAssignment { get; set; }
     }
 }
