@@ -6,7 +6,7 @@ namespace ContosoUniversityHõbesalu.Data
     {
         public static void Initialize(SchoolContext context)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
             if (context.Students.Any())
             {
@@ -22,20 +22,18 @@ namespace ContosoUniversityHõbesalu.Data
                 new Student() {FirstMidName="Kregor",LastName="Latt",EnrollmentDate=DateTime.Parse("2021-09-01")},
                 new Student() {FirstMidName="Joonas",LastName="Õispuu",EnrollmentDate=DateTime.Parse("2021-09-01")}
             };
-            //context.Students.AddRange(students);
-            foreach (Student s in students)
-            {
-                context.Students.Add(s);
-            }
+            context.Students.AddRange(students);
+            //foreach (Student s in students)
+            //{
+            //    context.Students.Add(s);
+            //}
             context.SaveChanges();
 
 
-            context.Database.EnsureCreated();
-
-            if (context.Instructors.Any())
-            {
-                return;
-            }
+            //if (context.Instructors.Any())
+            //{
+            //    return;
+            //}
             var instructors = new Instructor[]
             {
                 new Instructor {FirstMidName = "Jõulu", LastName = "Vana", HireDate = DateTime.Parse("1995-03-11")},
@@ -43,18 +41,18 @@ namespace ContosoUniversityHõbesalu.Data
                 new Instructor {FirstMidName = "Balta", LastName = "Parm", HireDate = DateTime.Parse("1995-03-11")},
                 new Instructor {FirstMidName = "Kinder", LastName = "Suprise", HireDate = DateTime.Parse("1995-03-11")},
             };
-            foreach (Instructor i in instructors)
-            {
-                context.Instructors.Add(i);
-            }
+            //foreach (Instructor i in instructors)
+            //{
+            //    context.Instructors.Add(i);
+            //}
+            context.Instructors.AddRange(instructors);
             context.SaveChanges();
 
-            context.Database.EnsureCreated();
 
-            if (context.Departments.Any())
-            {
-                return;
-            }
+            //if (context.Departments.Any())
+            //{
+            //    return;
+            //}
             var departments = new Department[]
             {
                 new Department
@@ -86,10 +84,25 @@ namespace ContosoUniversityHõbesalu.Data
                     InstructorID = instructors.Single(i => i.LastName == "Suprise").ID
                 },
             };
-            foreach (Department d in departments)
+            context.Departments.AddRange(departments);
+            context.SaveChanges();
+
+            var courses = new Course[]
             {
-                context.Departments.Add(d);
+                new Course() {CourseID=1050,Title="Programmeerimine",Credits=160},
+                new Course() {CourseID=6900,Title="Keemia",Credits=160},
+                new Course() {CourseID=1420,Title="Matemaatika",Credits=160},
+                new Course() {CourseID=6666,Title="Testimine",Credits=160},
+                new Course() {CourseID=1234,Title="Riigikaitse",Credits=160}
+            };
+            context.Courses.AddRange(courses);
+
+            /*
+             foreach (var course in courses)
+            {
+                context.Add(course);
             }
+             */
             context.SaveChanges();
 
             var officeAssignments = new OfficeAssignment[]
@@ -110,26 +123,9 @@ namespace ContosoUniversityHõbesalu.Data
                     Location = "Kaubik kooli ees",
                 }
             };
-            foreach (OfficeAssignment o in officeAssignments)
-            {
-                context.OfficeAssignments.Add(o);
-            }
+            context.OfficeAssignments.AddRange(officeAssignments);
             context.SaveChanges();
 
-            var courses = new Course[]
-            {
-                new Course() {CourseID=1050,Title="Programmeerimine",Credits=160},
-                new Course() {CourseID=6900,Title="Keemia",Credits=160},
-                new Course() {CourseID=1420,Title="Matemaatika",Credits=160},
-                new Course() {CourseID=6666,Title="Testimine",Credits=160},
-                new Course() {CourseID=1234,Title="Riigikaitse",Credits=160}
-            };
-
-            foreach (Course c in courses)
-            {
-                context.Courses.Add(c);
-            }
-            context.SaveChanges();
             var courseInstructors = new CourseAssignment[]
             {
                 new CourseAssignment
@@ -168,10 +164,7 @@ namespace ContosoUniversityHõbesalu.Data
                     InstructorID = instructors.Single(i => i.LastName == "Suprise").ID
                 },
             };
-            foreach (CourseAssignment ci in courseInstructors)
-            {
-                context.CourseAssignments.Add(ci);
-            }
+            context.CourseAssignments.AddRange(courseInstructors);
             context.SaveChanges();
 
 
@@ -195,13 +188,15 @@ namespace ContosoUniversityHõbesalu.Data
             };
             foreach (Enrollment e in enrollments)
             {
-                context.Enrollments.Add(e);
+                var enrollmentInDatabase = context.Enrollments.Where(
+                    s => s.StudentID == e.StudentID &&
+                    s.CourseID == e.CourseID).SingleOrDefault();
+                if (enrollmentInDatabase == null)
+                {
+                    context.Enrollments.Add(e);
+                }
             }
             context.SaveChanges();
-
-
-
-
         }
     }
 }
