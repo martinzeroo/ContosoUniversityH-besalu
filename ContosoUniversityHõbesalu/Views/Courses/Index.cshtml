@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ContosoUniversityHõbesalu.Models.CourseViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Courses</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.course.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.course.Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.course.Department)
+            </th>
+            <th>
+                Student Count
+            </th>
+            <th>
+                Instructors
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.course.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.course.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.course.Department.Name)
+                </td>
+                <td>
+                    @item.assignedStudents.Count()
+                </td>
+                <td>
+                    @{
+                        foreach (var instructor in item.assignedInstructors)
+                        {
+                            @instructor.FullName @:<br>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.course.CourseID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.course.CourseID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.course.CourseID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

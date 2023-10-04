@@ -19,11 +19,12 @@
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RowVersion)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Administrator)
             </th>
+            <th>
+                Courses
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,14 +41,19 @@
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RowVersion)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Administrator.FullName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.DepartmentID">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.DepartmentID">Details</a>
+                    @{
+                        foreach (var course in item.Courses)
+                        {
+                            @course.Title @:<br>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DepartmentID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DepartmentID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.DepartmentID">Delete</a>
                 </td>
             </tr>

@@ -5,8 +5,9 @@ namespace ContosoUniversityHõbesalu.Models
 {
     public class Instructor
     {
+
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Required]
         [StringLength(50)]
         [Display(Name = "Last Name")]
@@ -21,7 +22,7 @@ namespace ContosoUniversityHõbesalu.Models
         public string FullName
         {
             get
-            { return LastName + ", " + FirstMidName; }
+            { return FirstMidName + " " + LastName; }
         }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -29,5 +30,6 @@ namespace ContosoUniversityHõbesalu.Models
         public DateTime HireDate { get; set; }
         public ICollection<CourseAssignment>? CourseAssignments { get; set; }
         public OfficeAssignment? OfficeAssignment { get; set; }
+
     }
 }
