@@ -6,7 +6,7 @@ namespace ContosoUniversityHõbesalu.Models
     public class Department
     {
         [Key]
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
         [DataType(DataType.Currency)]

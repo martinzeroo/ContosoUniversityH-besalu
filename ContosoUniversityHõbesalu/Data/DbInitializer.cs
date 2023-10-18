@@ -60,28 +60,28 @@ namespace ContosoUniversityHõbesalu.Data
                     Name = "Infotechnology",
                     Budget = 0,
                     StartDate = DateTime.Parse("2007-09-01"),
-                    InstructorID = instructors.Single(i => i.LastName == "Parm").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Parm").Id
                 },
                 new Department
                 {
-                    Name = "Joomarlus",
+                    Name = "Internet Trolling",
                     Budget = 0,
                     StartDate = DateTime.Parse("2007-09-01"),
-                    InstructorID = instructors.Single(i => i.LastName == "Vana").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Vana").Id
                 },
                 new Department
                 {
-                    Name = "Internet Trolling & Tiktok 101",
+                    Name = "Internet Surfing",
                     Budget = 0,
                     StartDate = DateTime.Parse("2007-09-01"),
-                    InstructorID = instructors.Single(i => i.LastName == "Kuningas").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Kuningas").Id
                 },
                 new Department
                 {
-                    Name = "Kokandus",
+                    Name = "Baking",
                     Budget = 0,
                     StartDate = DateTime.Parse("2007-09-01"),
-                    InstructorID = instructors.Single(i => i.LastName == "Suprise").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Suprise").Id
                 },
             };
             context.Departments.AddRange(departments);
@@ -109,17 +109,17 @@ namespace ContosoUniversityHõbesalu.Data
             {
                 new OfficeAssignment()
                 {
-                    InstructorID = instructors.Single(i => i.LastName == "Vana").ID,
+                    InstructorID = instructors.Single(i => i.LastName == "Vana").Id,
                     Location = "A236",
                 },
                 new OfficeAssignment()
                 {
-                    InstructorID = instructors.Single(i => i.LastName == "Parm").ID,
+                    InstructorID = instructors.Single(i => i.LastName == "Parm").Id,
                     Location = "Balta turu värav",
                 },
                 new OfficeAssignment()
                 {
-                    InstructorID = instructors.Single(i => i.LastName == "Suprise").ID,
+                    InstructorID = instructors.Single(i => i.LastName == "Suprise").Id,
                     Location = "Kaubik kooli ees",
                 }
             };
@@ -131,37 +131,37 @@ namespace ContosoUniversityHõbesalu.Data
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Keemia").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Parm").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Parm").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Riigikaitse").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Parm").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Parm").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Matemaatika").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Parm").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Parm").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Keemia").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Vana").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Vana").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Programmeerimine").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Vana").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Vana").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Matemaatika").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Suprise").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Suprise").Id
                 },
                 new CourseAssignment
                 {
                     CourseID = courses.Single(c => c.Title == "Riigikaitse").CourseID,
-                    InstructorID = instructors.Single(i => i.LastName == "Suprise").ID
+                    InstructorID = instructors.Single(i => i.LastName == "Suprise").Id
                 },
             };
             context.CourseAssignments.AddRange(courseInstructors);

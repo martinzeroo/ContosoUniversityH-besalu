@@ -13,7 +13,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                 name: "Instructor",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -21,7 +21,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instructor", x => x.ID);
+                    table.PrimaryKey("PK_Instructor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,22 +43,22 @@ namespace ContosoUniversityHõbesalu.Migrations
                 name: "Department",
                 columns: table => new
                 {
-                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Budget = table.Column<decimal>(type: "Money", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     InstructorID = table.Column<int>(type: "int", nullable: true),
-                    RowVersion = table.Column<byte>(type: "tinyint", rowVersion: true, nullable: false)
+                    RowVersion = table.Column<byte>(type: "tinyint", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Department", x => x.DepartmentID);
+                    table.PrimaryKey("PK_Department", x => x.DepartmentId);
                     table.ForeignKey(
                         name: "FK_Department_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
-                        principalColumn: "ID");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -75,7 +75,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                         name: "FK_OfficeAssignment_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
-                        principalColumn: "ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -86,30 +86,31 @@ namespace ContosoUniversityHõbesalu.Migrations
                     CourseID = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Credits = table.Column<int>(type: "int", nullable: false),
-                    DepartmentID = table.Column<int>(type: "int", nullable: true)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Course", x => x.CourseID);
                     table.ForeignKey(
-                        name: "FK_Course_Department_DepartmentID",
-                        column: x => x.DepartmentID,
+                        name: "FK_Course_Department_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentID");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CourseAssignment",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InstructorID = table.Column<int>(type: "int", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseAssignment", x => x.Id);
+                    table.PrimaryKey("PK_CourseAssignment", x => x.ID);
                     table.ForeignKey(
                         name: "FK_CourseAssignment_Course_CourseID",
                         column: x => x.CourseID,
@@ -120,7 +121,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                         name: "FK_CourseAssignment_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
-                        principalColumn: "ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -152,9 +153,9 @@ namespace ContosoUniversityHõbesalu.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Course_DepartmentID",
+                name: "IX_Course_DepartmentId",
                 table: "Course",
-                column: "DepartmentID");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseAssignment_CourseID",

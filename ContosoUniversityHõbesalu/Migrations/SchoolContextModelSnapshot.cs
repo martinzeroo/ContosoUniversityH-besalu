@@ -30,7 +30,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DepartmentID")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -39,18 +39,18 @@ namespace ContosoUniversityHõbesalu.Migrations
 
                     b.HasKey("CourseID");
 
-                    b.HasIndex("DepartmentID");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.CourseAssignment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
@@ -58,7 +58,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                     b.Property<int>("InstructorID")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CourseID");
 
@@ -69,11 +69,11 @@ namespace ContosoUniversityHõbesalu.Migrations
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.Department", b =>
                 {
-                    b.Property<int>("DepartmentID")
+                    b.Property<int>("DepartmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"), 1L, 1);
 
                     b.Property<decimal>("Budget")
                         .HasColumnType("Money");
@@ -86,7 +86,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<byte>("RowVersion")
+                    b.Property<byte?>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("tinyint");
@@ -94,7 +94,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("DepartmentID");
+                    b.HasKey("DepartmentId");
 
                     b.HasIndex("InstructorID");
 
@@ -129,11 +129,11 @@ namespace ContosoUniversityHõbesalu.Migrations
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.Instructor", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FirstMidName")
                         .IsRequired()
@@ -149,7 +149,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Instructor", (string)null);
                 });
@@ -195,15 +195,19 @@ namespace ContosoUniversityHõbesalu.Migrations
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.Course", b =>
                 {
-                    b.HasOne("ContosoUniversityHõbesalu.Models.Department", null)
+                    b.HasOne("ContosoUniversityHõbesalu.Models.Department", "Department")
                         .WithMany("Courses")
-                        .HasForeignKey("DepartmentID");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.CourseAssignment", b =>
                 {
                     b.HasOne("ContosoUniversityHõbesalu.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("CourseAssignments")
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -248,7 +252,7 @@ namespace ContosoUniversityHõbesalu.Migrations
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.OfficeAssignment", b =>
                 {
                     b.HasOne("ContosoUniversityHõbesalu.Models.Instructor", "Instructor")
-                        .WithOne("OfficeAssignments")
+                        .WithOne("OfficeAssignment")
                         .HasForeignKey("ContosoUniversityHõbesalu.Models.OfficeAssignment", "InstructorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -258,6 +262,8 @@ namespace ContosoUniversityHõbesalu.Migrations
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.Course", b =>
                 {
+                    b.Navigation("CourseAssignments");
+
                     b.Navigation("Enrollments");
                 });
 
@@ -270,8 +276,7 @@ namespace ContosoUniversityHõbesalu.Migrations
                 {
                     b.Navigation("CourseAssignments");
 
-                    b.Navigation("OfficeAssignments")
-                        .IsRequired();
+                    b.Navigation("OfficeAssignment");
                 });
 
             modelBuilder.Entity("ContosoUniversityHõbesalu.Models.Student", b =>

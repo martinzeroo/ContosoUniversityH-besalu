@@ -28,7 +28,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             {
                 return NotFound();
             }
-            string query = "SELECT * FROM Department WHERE DepartmentID = {0}";
+            string query = "SELECT * FROM Department WHERE DepartmentId = {0}";
             var department = await _context.Departments
                 .FromSqlRaw(query, id)
                 .Include(d => d.Administrator)
@@ -77,7 +77,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             var department = await _context.Departments
                 .Include(i => i.Administrator)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+                .FirstOrDefaultAsync(m => m.DepartmentId == id);
             if (department == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace ContosoUniversityHõbesalu.Controllers
 
             var departmentToUpdate = await _context.Departments
                 .Include(i => i.Administrator)
-                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+                .FirstOrDefaultAsync(m => m.DepartmentId == id);
 
             if (departmentToUpdate == null)
             {
@@ -149,7 +149,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                         }
                         if (databaseValues.InstructorID != clientValues.InstructorID)
                         {
-                            Instructor databaseInstructor = await _context.Instructors.FirstOrDefaultAsync(i => i.ID == databaseValues.InstructorID);
+                            Instructor databaseInstructor = await _context.Instructors.FirstOrDefaultAsync(i => i.Id == databaseValues.InstructorID);
                             ModelState.AddModelError("InstructorID", $"Current value: {databaseValues.InstructorID}");
                         }
                         ModelState.AddModelError(string.Empty, "The record you attempted to edit "
@@ -177,7 +177,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             var department = await _context.Departments
                 .Include(d => d.Administrator)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+                .FirstOrDefaultAsync(m => m.DepartmentId == id);
 
             if (department == null)
             {
@@ -206,7 +206,7 @@ namespace ContosoUniversityHõbesalu.Controllers
         {
             try
             {
-                if (await _context.Departments.AnyAsync(m => m.DepartmentID == department.DepartmentID))
+                if (await _context.Departments.AnyAsync(m => m.DepartmentId == department.DepartmentId))
                 {
                     _context.Departments.Remove(department);
                     await _context.SaveChangesAsync();
@@ -215,7 +215,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                return RedirectToAction(nameof(Delete), new { concurrencyError = true, id = department.DepartmentID });
+                return RedirectToAction(nameof(Delete), new { concurrencyError = true, id = department.DepartmentId });
             }
         }
     }

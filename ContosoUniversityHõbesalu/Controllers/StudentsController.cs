@@ -32,7 +32,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 .Include(s => s.Enrollments)
                 .ThenInclude(e => e.CourseID)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             {
                 return NotFound();
             }
-            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.ID == id);
+            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
             if (await TryUpdateModelAsync<Student>(studentToUpdate, "", s => s.FirstMidName,
                 s => s.LastName, s => s.EnrollmentDate))
             {
@@ -112,7 +112,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             }
             var student = await _context.Students
                 .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.ID == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (student == null)
             {
                 return NotFound();

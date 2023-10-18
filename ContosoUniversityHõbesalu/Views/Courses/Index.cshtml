@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ContosoUniversityHõbesalu.Models.CourseViewModel>
+﻿@model IEnumerable<ContosoUniversityHõbesalu.Models.Course>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,25 +8,22 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table>
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.course.Title)
+                @Html.DisplayNameFor(model => model.CourseID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.course.Credits)
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Credits)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.course.Department)
+                @Html.DisplayNameFor(model => model.Department)
             </th>
-            <th>
-                Student Count
-            </th>
-            <th>
-                Instructors
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,30 +31,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.course.Title)
+                    @Html.DisplayFor(modelItem => item.CourseID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.course.Credits)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.course.Department.Name)
+                    @Html.DisplayFor(modelItem => item.Credits)
                 </td>
                 <td>
-                    @item.assignedStudents.Count()
+                    @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
-                    @{
-                        foreach (var instructor in item.assignedInstructors)
-                        {
-                            @instructor.FullName @:<br>
-                        }
-                    }
+                    <a asp-action="Edit" asp-route-id="@item.CourseID">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CourseID">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.CourseID">Delete</a>
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.course.CourseID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.course.CourseID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.course.CourseID">Delete</a>
-                </td>
+
             </tr>
         }
     </tbody>

@@ -36,7 +36,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             {
                 ViewData["InstructorID"] = id.Value;
                 Instructor instructor = vm.Instructors
-                    .Where(i => i.ID == id.Value).Single();
+                    .Where(i => i.Id == id.Value).Single();
                 vm.Courses = instructor.CourseAssignments
                     .Select(i => i.Course);
             }
@@ -71,7 +71,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 {
                     var courseToAdd = new CourseAssignment
                     {
-                        InstructorID = instructor.ID,
+                        InstructorID = instructor.Id,
                         CourseID = int.Parse(course)
                     };
                     instructor.CourseAssignments.Add(courseToAdd);
@@ -93,7 +93,7 @@ namespace ContosoUniversityHõbesalu.Controllers
             {
                 return NotFound();
             }
-            var instructor = await _context.Instructors.FirstOrDefaultAsync(m => m.ID == id);
+            var instructor = await _context.Instructors.FirstOrDefaultAsync(m => m.Id == id);
             if (instructor == null)
             {
                 return NotFound();
@@ -112,7 +112,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 .Include(i => i.CourseAssignments)
                 .ThenInclude(i => i.Course)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (instructor == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.CourseAssignments)
                 .ThenInclude(i => i.Course)
-                .FirstOrDefaultAsync(s => s.ID == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (await TryUpdateModelAsync<Instructor>(instructorToUpdate, "",
                 i => i.FirstMidName,
                 i => i.LastName,
@@ -170,7 +170,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 return NotFound();
             }
             var instructor = await _context.Instructors
-                .FirstOrDefaultAsync(s => s.ID == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (instructor == null)
             {
                 return NotFound();
@@ -184,7 +184,7 @@ namespace ContosoUniversityHõbesalu.Controllers
         {
             Instructor instructor = await _context.Instructors
                 .Include(i => i.CourseAssignments)
-                .SingleAsync(i => i.ID == id);
+                .SingleAsync(i => i.Id == id);
 
             var departments = await _context.Departments
                  .Where(d => d.InstructorID == id)
@@ -212,7 +212,7 @@ namespace ContosoUniversityHõbesalu.Controllers
                 {
                     if (!instructorCourses.Contains(course.CourseID))
                     {
-                        instructorToUpdate.CourseAssignments.Add(new CourseAssignment { InstructorID = instructorToUpdate.ID, CourseID = course.CourseID });
+                        instructorToUpdate.CourseAssignments.Add(new CourseAssignment { InstructorID = instructorToUpdate.Id, CourseID = course.CourseID });
                     }
                     else
                     {
